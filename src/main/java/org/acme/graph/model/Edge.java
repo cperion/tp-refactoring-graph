@@ -82,12 +82,6 @@ public class Edge {
 		return source;
 	}
 
-	public void setSource(Vertex source) throws IllegalArgumentException {
-		if (id == null) {
-			throw new IllegalArgumentException();
-		}
-		this.source = source;
-	}
 
 	@JsonIdentityInfo
 	(
@@ -97,13 +91,6 @@ public class Edge {
     @JsonIdentityReference(alwaysAsId=true)
 	public Vertex getTarget() {
 		return target;
-	}
-
-	public void setTarget(Vertex target) throws IllegalArgumentException {
-		if (target == null) {
-			throw new IllegalArgumentException();
-		}
-		this.target = target;
 	}
 
 	/**

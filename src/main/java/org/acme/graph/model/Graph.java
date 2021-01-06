@@ -33,7 +33,6 @@ public class Graph {
 	}
 
 
-
 	/**
 	 * Recherche d'un sommet par identifiant
 	 * 
