@@ -39,7 +39,10 @@ public class Edge {
 			throw new IllegalArgumentException();
 		}
 		this.source = source;
+		source.addOutEdge(this);
+
 		this.target = target;
+		target.addInEdge(this);
 	}
 
 	public String getId() {
