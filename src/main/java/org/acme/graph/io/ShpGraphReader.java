@@ -60,12 +60,12 @@ public class ShpGraphReader {
 				Vertex target = getOrCreateVertex(graph, geometry.getEndPoint().getCoordinate());
 
 				/* Création de l'arc pour le parcours en sens direct */
-				Edge directEdge = new Edge(id + "-direct", source, target);
-				graph.getEdges().add(directEdge);
+				Edge directEdge = graph.createEdge(source, target);
+				directEdge.setId(id);
 
 				/* Création de l'arc pour le parcours en sens opposé */
-				Edge reverseEdge = new Edge(id + "-reverse", target, source );
-				graph.getEdges().add(reverseEdge);
+				Edge reverseEdge = graph.createEdge(target, source);
+				reverseEdge.setId(id);
 			}
 		}
 		return graph;

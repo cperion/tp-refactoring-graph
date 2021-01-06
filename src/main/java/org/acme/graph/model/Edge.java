@@ -34,6 +34,14 @@ public class Edge {
 		this.target = target;
 	}
 
+	public Edge(Vertex source, Vertex target) throws IllegalArgumentException {
+		if (source == null || target == null) {
+			throw new IllegalArgumentException();
+		}
+		this.source = source;
+		this.target = target;
+	}
+
 	public String getId() {
 		return id;
 	}
