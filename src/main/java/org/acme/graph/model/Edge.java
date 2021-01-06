@@ -2,6 +2,16 @@ package org.acme.graph.model;
 
 import javax.validation.constraints.Null;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.LineString;
+
 /**
  * 
  * Un arc matérialisé par un sommet source et un sommet cible
@@ -24,17 +34,23 @@ public class Edge {
 	 * Sommet final
 	 */
 	private Vertex target;
+
+	private Geometry geometry;
+
+
 	
-	public Edge(String id, Vertex source, Vertex target) throws IllegalArgumentException {
+	Edge(String id, Vertex source, Vertex target) throws IllegalArgumentException {
 		if (id == null || source == null || target == null) {
 			throw new IllegalArgumentException();
 		}
 		this.id = id;
 		this.source = source;
 		this.target = target;
+
+
 	}
 
-	public Edge(Vertex source, Vertex target) throws IllegalArgumentException {
+	Edge(Vertex source, Vertex target) throws IllegalArgumentException {
 		if (source == null || target == null) {
 			throw new IllegalArgumentException();
 		}
@@ -56,6 +72,12 @@ public class Edge {
 		this.id = id;
 	}
 
+	@JsonIdentityInfo
+	(
+	generator=ObjectIdGenerators.PropertyGenerator.class, 
+	property="id"
+    )
+    @JsonIdentityReference(alwaysAsId=true)
 	public Vertex getSource() {
 		return source;
 	}
@@ -67,6 +89,12 @@ public class Edge {
 		this.source = source;
 	}
 
+	@JsonIdentityInfo
+	(
+	generator=ObjectIdGenerators.PropertyGenerator.class, 
+	property="id"
+    )
+    @JsonIdentityReference(alwaysAsId=true)
 	public Vertex getTarget() {
 		return target;
 	}
@@ -91,5 +119,14 @@ public class Edge {
 	public String toString() {
 		return id + " (" + source + "->" + target + ")";
 	}
+
+	 @JsonSerialize(using = GeometrySerializer.class)
+    public LineString getGeometry() {
+        GeometryFactory gf = new GeometryFactory();
+        return (LineString)gf.createLineString(new Coordinate[] {
+            getSource().getCoordinate(),
+            getTarget().getCoordinate()
+        });
+    }
 
 }
