@@ -39,13 +39,16 @@ public class TestGraphFactory {
 		d.setCoordinate(new Coordinate(1.0, 1.0));		
 		graph.getVertices().add(d);
 		
-		Edge ab = new Edge("ab", a, b);
+		Edge ab = new Edge(a, b);
+		ab.setId("ab");
 		graph.getEdges().add(ab);
 		
-		Edge bc = new Edge("bc", b, c);
+		Edge bc = new Edge(b, c);
+		bc.setId("bc");
 		graph.getEdges().add(bc);
 
-		Edge ad = new Edge("ad", a, d);
+		Edge ad = new Edge(a, d);
+		ad.setId("ad");
 		graph.getEdges().add(ad);		
 		
 		return graph;

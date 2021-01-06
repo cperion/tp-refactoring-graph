@@ -63,7 +63,8 @@ public class XmlGraphReader {
 
 				String targetId = edgeElement.getAttribute("target").getValue();
 				Vertex target = graph.findVertex(targetId);
-				Edge edge = new Edge(id, source, target);
+				Edge edge = new Edge(source, target);
+				edge.setId(id);
 				graph.getEdges().add(edge);
 			}
 		}
