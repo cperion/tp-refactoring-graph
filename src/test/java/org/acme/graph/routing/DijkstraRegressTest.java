@@ -4,11 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.acme.graph.TestGraphFactory;
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
+import org.acme.graph.model.Path;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,20 +34,20 @@ public class DijkstraRegressTest {
 
 	@Test
 	public void testABFound() {
-		List<Edge> path = finder.findPath(graph.findVertex("a"), graph.findVertex("b"));
+		Path path = finder.findPath(graph.findVertex("a"), graph.findVertex("b"));
 		assertNotNull(path);
 		assertEquals(1, path.size());
 	}
 
 	@Test
 	public void testBANotFound() {
-		List<Edge> path = finder.findPath(graph.findVertex("b"), graph.findVertex("a"));
-		assertNull(path);
+		Path path = finder.findPath(graph.findVertex("b"), graph.findVertex("a"));
+		assertEquals(new ArrayList<Edge>(), path.getEdges());
 	}
 
 	@Test
 	public void testACFoundWithCorrectOrder() {
-		List<Edge> path = finder.findPath(graph.findVertex("a"), graph.findVertex("c"));
+		Path path = finder.findPath(graph.findVertex("a"), graph.findVertex("c"));
 		assertNotNull(path);
 		assertEquals(2, path.size());
 
