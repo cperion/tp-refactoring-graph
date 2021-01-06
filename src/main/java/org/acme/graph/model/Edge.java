@@ -1,5 +1,7 @@
 package org.acme.graph.model;
 
+import javax.validation.constraints.Null;
+
 /**
  * 
  * Un arc matérialisé par un sommet source et un sommet cible
@@ -22,16 +24,24 @@ public class Edge {
 	 * Sommet final
 	 */
 	private Vertex target;
-
-	public Edge() {
-
+	
+	public Edge(String id, Vertex source, Vertex target) throws IllegalArgumentException {
+		if (id == null || source == null || target == null) {
+			throw new IllegalArgumentException();
+		}
+		this.id = id;
+		this.source = source;
+		this.target = target;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(String id) throws IllegalArgumentException {
+		if (id == null) {
+			throw new IllegalArgumentException();
+		}
 		this.id = id;
 	}
 
@@ -39,7 +49,10 @@ public class Edge {
 		return source;
 	}
 
-	public void setSource(Vertex source) {
+	public void setSource(Vertex source) throws IllegalArgumentException {
+		if (id == null) {
+			throw new IllegalArgumentException();
+		}
 		this.source = source;
 	}
 
@@ -47,7 +60,10 @@ public class Edge {
 		return target;
 	}
 
-	public void setTarget(Vertex target) {
+	public void setTarget(Vertex target) throws IllegalArgumentException {
+		if (target == null) {
+			throw new IllegalArgumentException();
+		}
 		this.target = target;
 	}
 
